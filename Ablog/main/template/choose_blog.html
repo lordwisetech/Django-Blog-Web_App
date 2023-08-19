@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Choose blog</title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta content="Free Website Template" name="keywords">
+        <meta content="Free Website Template" name="description">
+
+        <!-- Favicon -->
+        <link href=" static/img/favicon.ico" rel="icon">
+
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:300;400;600;700;800&display=swap" rel="stylesheet">
+
+        <!-- Font Awesome -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+        <!-- Customized Bootstrap Stylesheet -->
+        <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+    </head>
+
+    <body>
+
+            <div class="content">
+                <!-- Navbar Start -->
+                <div class="container p-0">
+                    <nav class="navbar navbar-expand-lg bg-secondary navbar-dark">
+                        <a href="" class="navbar-brand d-block d-lg-none">Navigation</a>
+                        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                            <div class="navbar-nav m-auto">
+                                <a href="{% url 'home' %}" class="nav-item nav-link active">Home</a>
+                                <a href="{% url 'adminurl' %}" class="nav-item nav-link">admin</a>
+                                </div>
+                            </div>
+                    </nav>
+                </div>
+
+
+                {% for post in object_list %}
+                <div class="container bg-white pt-5">
+                    <div class="row blog-item px-3 pb-5">
+                        <div class="col-md-5">
+                            <img class="img-fluid mb-4 mb-md-0" src="static/img/blog-1.jpg" alt="Image">
+                        </div>
+                        <div class="col-md-7">
+
+                            <h3 class="mt-md-4 px-md-3 mb-2 py-2 bg-white font-weight-bold">{{ post.title }}</h3>
+
+                            <p>
+                                {{ post.body }}
+                            </p>
+                            <br><br>
+                            <a href="{% url 'edit' post.pk %}" ><button class="bg-primary">EDIT POST</button></a>
+
+                             <a href="{% url 'delete' post.pk %}" ><button class="bg-danger">Delete post</button></a>
+
+                        </div>
+                    </div>
+                     {% endfor %}
+
+    </body>
+</html>
