@@ -128,7 +128,7 @@
                 <div class="container bg-white pt-5">
                     <div class="row blog-item px-3 pb-5">
                         <div class="col-md-5">
-                            <img class="img-fluid mb-4 mb-md-0" src="static/img/blog-1.jpg" alt="Image">
+                            <img class="img-fluid mb-4 mb-md-0" src="{{post.post_img.url}}" alt="Image">
                         </div>
                         <div class="col-md-7">
 
@@ -138,14 +138,14 @@
 
                             </div>
                             <p>
-                                {{ post.body }}
+                                {{ post.summary }}
                             </p>
                             <a class="btn btn-link p-0" href="{% url 'blogg' post.pk %}">Read More <i class="fa fa-angle-right"></i></a>
-
+{% endfor                         {% endfor %}
 
                         </div>
                     </div>
-                     {% endfor %}
+
 
 
                 <!-- Blog List End -->

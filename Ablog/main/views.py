@@ -1,14 +1,21 @@
 from django.contrib.auth.models import User
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import *
-from .models import CreateBlog
+from .models import CreateBlog, images
 
 
 # home page view
+
 class Homepage(ListView):
     model = CreateBlog
-    template_name = "main/template/index.html"
+    template_name = "main/template/home.html"
     context_object_name = "post"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['images'] = images.objects.all()
+        return context
+
 
 
 # blog page view
