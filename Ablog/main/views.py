@@ -17,26 +17,28 @@ class Homepage(ListView):
         return context
 
 
-
 # blog page view
 class Blogpage(DetailView):
     model = CreateBlog
-    template_name = "main/template/single.html"
+    template_name = "main/template/blog.html"
     context_object_name = "post"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['images'] = images.objects.all()
+        return context
 
 
 # read more view
 def show(request):
-    return render(request, "main/template/single.html")
+    return render(request, "main/template/blog.html")
 
 
 # admin dashboard------------------------------------------------------------------------------------
 def admindashboard(request):
     if request.method == 'POST':
         grab_title = request.POST['title']
-
-        # Simulate a logged-in user for testing
-        # Replace 'your_username' with an existing username
+        grab_Summary = request.POST['Summary']
         grab_author = User.objects.get()
 
         grab_title_tag = request.POST['title_tag']
@@ -46,11 +48,13 @@ def admindashboard(request):
             title=grab_title,
             author=grab_author,
             title_tag=grab_title_tag,
-            body=grab_content
+            body=grab_content,
+            Summary=grab_Summary
+
         )
         new_blog_post.save()
 
-    return render(request, "main/template/admin.html")
+    return render(request, "main/template/admin1.html")
 
 
 # choose post view
@@ -61,9 +65,7 @@ class updatepost_view1(ListView):
     context_object_name = "post"
 
 
-
-def edit_blog(request,pk):
-
+def edit_blog(request, pk):
     post = get_object_or_404(CreateBlog, id=pk)
 
     if request.method == 'POST':
@@ -76,23 +78,13 @@ def edit_blog(request,pk):
 
     context = {'post': post}
 
-    return render(request,"main/template/update_blog.html",context)
+    return render(request, "main/template/update_blog.html", context)
 
 
-
-def delete(request,pk):
+def delete(request, pk):
     post = CreateBlog.objects.get(id=pk)
 
     post.delete()
     return redirect('adminurl')
-    #context = {'post': post}
-   # return render(request,"main/template/choose_blog.html")
-
-
-
-
-
-
-
-
-
+    # context = {'post': post}
+# return render(request,"main/template/choose_blog.html")
